@@ -1,6 +1,9 @@
 # DefinitelyWildcats
 DS1004 - Big Data Project
 
+Data for this project can be found here
+https://s3.console.aws.amazon.com/s3/buckets/emrbucket-dag20180305/ds1004-project/?region=us-east-1&tab=overview
+
 ## Initial Setup
 1. Create the EMR cluster with the following settings:
 ![EMR_setup](assets/misc/aws-cluster-start.png?raw=true "Title")
