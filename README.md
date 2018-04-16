@@ -19,6 +19,7 @@ DS1004 - Big Data Project
 ## Steps to get Jupyter Notebook running on EMR and then your local machine
 
 1. Run `sudo python3 -m pip install --upgrade pip`
+1. Run `sudo python3 -m pip install findspark`
 1. Run `sudo python3 -m pip install jupyter`
 1. Run `jupyter notebook --no-browser --port=8888 --ip=0.0.0.0` (the notebook is now running at port 8888)
 1. Note the token that is generated to enter into the browser at some later point in time.
