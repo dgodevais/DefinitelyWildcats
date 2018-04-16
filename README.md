@@ -22,3 +22,7 @@ DS1004 - Big Data Project
 1. Open a new terminal and input `ssh -i {}.pem -L {local port e.g. 8212}:localhost:8888 hadoop@{}.compute-1.amazonaws.com`
 1. Go to http://localhost:8212/tree in Chrome
 1. Voila!
+
+Note: To install git run `sudo yum install git-core`
+
+Note to self: some of these steps can be moved to bootstrap actions. Might not be worth it though since those need to be manually entered anyway at startup.
