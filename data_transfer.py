@@ -46,31 +46,44 @@ def upload_file(bucket_name, filename, s3_path):
     except Exception as e:
         print("Error uploading: {}".format(str(e)))
 
+urls = [
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_0.tar"
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_1.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_2.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_3.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_4.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_5.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_6.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_7.tar",
+    "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_8.tar",
+]
+for url in urls:
+    file_name = url.split('/')[-1]
+    u = urllib2.urlopen(url)
+    start_time = time.time()
+    with open(file_name, 'w') as fname:
+        meta = u.info()
+        file_size = int(meta.getheaders("Content-Length")[0])
+        print("Downloading: %s Bytes: %s" % (file_name, file_size))
 
-url = "https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/static/imdb_0.tar"
-file_name = url.split('/')[-1]
-u = urllib2.urlopen(url)
-with open(file_name, 'w') as fname:
-    meta = u.info()
-    file_size = int(meta.getheaders("Content-Length")[0])
-    print("Downloading: %s Bytes: %s" % (file_name, file_size))
+        file_size_dl = 0
+        block_sz = 5000000
+        while True:
+            buffer = u.read(block_sz)
+            if not buffer:
+                break
 
-    file_size_dl = 0
-    block_sz = 5000000
-    while True:
-        buffer = u.read(block_sz)
-        if not buffer:
-            break
+            file_size_dl += len(buffer)
+            fname.write(buffer)
+            status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
+            status = status + chr(8)*(len(status)+1)
+            print(status)
+    download_time = round((time.time() - start_time) / 60, 2)
+    print("File {} download took {} minutes".format(file_name, download_time))
 
-        file_size_dl += len(buffer)
-        fname.write(buffer)
-        status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
-        status = status + chr(8)*(len(status)+1)
-        print(status)
-
-start_time = time.time()
-upload_file("emrbucket-dag20180305", file_name, file_name)
-upload_time = round((time.time() - start_time) / 60, 2)
-print("File {} upload took {} minutes".format(file_name, upload_time))
-print("Removing file {}".format(file_name))
-os.remove(file_name)
+    start_time = time.time()
+    upload_file("emrbucket-dag20180305", file_name, file_name)
+    upload_time = round((time.time() - start_time) / 60, 2)
+    print("File {} upload took {} minutes".format(file_name, upload_time))
+    print("Removing file {}".format(file_name))
+    os.remove(file_name)
