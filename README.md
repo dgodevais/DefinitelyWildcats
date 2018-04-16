@@ -28,4 +28,8 @@ DS1004 - Big Data Project
 1. Go to http://localhost:8212/tree in Chrome
 1. Voila!
 
+Try running this
+![EMR_sample](assets/misc/emr-jupyter-sample.png?raw=true "Title")
+
+
 Note to self: some of these steps can be moved to bootstrap actions. Might not be worth it though since those need to be manually entered anyway at startup.
