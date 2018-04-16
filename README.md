@@ -14,7 +14,8 @@ DS1004 - Big Data Project
    1. Add a new TCP inbound rule for port 8888 (you will need this to access the jupyter server)
 1. SSH into your EMR cluster
 1. To install git run `sudo yum install git-core`
-1. Run `export PYSPARK_PYTHON=/usr/bin/python3` (this will ensure pyspark runs with python3)
+1. Add `export PYSPARK_PYTHON=/usr/bin/python3` to your bash profile (this will ensure pyspark runs with python3)
+1. Add `export $SPARK_HOME=/usr/lib/spark` (for some reason is not set by default - not sure how pyspark finds it???)
 
 ## Steps to get Jupyter Notebook running on EMR and then your local machine
 
