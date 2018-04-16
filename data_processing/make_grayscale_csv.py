@@ -8,7 +8,6 @@ import csv
 cropped_dir = sys.argv[1]
 
 count = 0
-		
 
 with open('grayscale_data.csv', 'w') as f:
 	writer = csv.writer(f)
@@ -28,6 +27,7 @@ with open('grayscale_data.csv', 'w') as f:
 		            pix = pix.flatten()
 		            #write row
 		            pix = pix.tolist()
+		            pix = pix[::2]
 		            name = [str(i[2][j])]
 		            row = name + pix
 		            writer.writerow(row)
@@ -36,10 +36,3 @@ with open('grayscale_data.csv', 'w') as f:
 		            	print(str(count) + ' images converted')
 		        except :
 		        	print('Image ' + str(i[2][j])+ ' not converted')
-
-
-
-
-
-
-
