@@ -10,14 +10,15 @@ from operator import itemgetter
 from scipy.sparse import *
 '''
 Run script with:
-python3 make_sparse_matrix.py unpacked_tar_dir mat_file group
+python3 make_sparse_matrix.py unpacked_tar_dir mat_file group output_file
 i.e:
-python3 make_sparse_matrix.py imdb_1 imdb.mat imdb
+python3 make_sparse_matrix.py imdb_1 imdb.mat imdb output_file_1.npz
 '''
 
 unpacked_tar_dir = sys.argv[1]
 mat_file = sys.argv[2]
 group = sys.argv[3]
+output_file = sys.argv[4]
 
 # imdb mat file
 label_data = scipy.io.loadmat(mat_file)
@@ -26,7 +27,7 @@ file_loc = label_data[group]['full_path']
 dob =  label_data[group]['dob']
 taken_year = label_data[group]['photo_taken']
 df = pd.DataFrame({'file':file_loc[0][0][0], 'gender':gender[0][0][0], 
-                   'dob': dob[0][0][0]/365, 'taken_year': taken_year[0][0][0]})#, index=range(0,len(file)))
+                   'dob': dob[0][0][0]/365, 'taken_year': taken_year[0][0][0], })#, index=range(0,len(file)))
 df['age'] = df['taken_year'] - df['dob']
 df['file'] = df['file'].map(lambda x: x[0].lstrip('[]').split('/', 1)[1])
 
@@ -97,6 +98,7 @@ for i in os.walk(unpacked_tar_dir):
                 sparse_matrix = vstack([sparse_matrix, sparse_row])
             row_list.append(image_count)
             image_list.append(i[2][j])
+            print(df[df['file'] == str(i[2][j])])
             age_list.append(float(df[df['file'] == str(i[2][j])]['age']))
             gender_list.append(float(df[df['file'] == str(i[2][j])]['gender']))
             print(age_list)
@@ -111,5 +113,5 @@ sparse_gender = csr_matrix((np.asarray(gender_list),(np.arange(len(image_list)),
 sparse_matrix = hstack([sparse_image_count, sparse_matrix, sparse_age, sparse_gender])
 processed_files_df = pd.DataFrame({'file_name':image_list, 'image_number':row_list})
 processed_files_df.to_csv('processed_filenames.csv')
-save_npz('sparse_matrix.npz', sparse_matrix)
+save_npz(output_file, sparse_matrix)
 
