@@ -98,11 +98,8 @@ for i in os.walk(unpacked_tar_dir):
                 sparse_matrix = vstack([sparse_matrix, sparse_row])
             row_list.append(image_count)
             image_list.append(i[2][j])
-            print(df[df['file'] == str(i[2][j])])
             age_list.append(float(df[df['file'] == str(i[2][j])]['age']))
             gender_list.append(float(df[df['file'] == str(i[2][j])]['gender']))
-            print(age_list)
-            print(gender_list)
             image_count += 1
 sparse_image_count = csr_matrix((np.arange(len(image_list)),(np.arange(len(image_list)), np.repeat(0, len(image_list)))),\
     shape=(len(image_list), 1))
