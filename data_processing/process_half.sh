@@ -14,6 +14,7 @@ for file_prefix in ${file_prefixes[@]}; do
     tar -xvf ${file_prefix}
     python3 make_sparse_matrix.py imdb imdb.mat imdb output_file_${file_prefix}.npz
     rm -rf imdb
+    rm ${file_prefixes}.tar
 done
 
 
