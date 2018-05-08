@@ -1,23 +1,17 @@
 #!/bin/bash
 
 file_prefixes=(
-	imdb_1,
-	imdb_2,
-	imdb_3,
-	imdb_4,
 	imdb_5
+	imdb_6
+	imdb_7
 	)
 
 
 for file_prefix in ${file_prefixes[@]}; do
-    wget https://emrbucket-dag20180305.s3.amazonaws.com/ds1004-project/raw/${file_prefixes}.tar
-    tar -xvf ${file_prefix}
-    python3 make_sparse_matrix.py imdb imdb.mat imdb output_file_${file_prefix}.npz
+    wget https://emrbucket-dag20180305.s3.amazonaws.com/ds1004-project/raw/${file_prefix}.tar
+    tar ${file_prefix}.tar
+    python3 make_smaller_sparse_matrices.py imdb imdb.mat imdb output_file_${file_prefix}.npz
     rm -rf imdb
-    rm ${file_prefixes}.tar
+    rm ${file_prefix}.tar
 done
-
-
-
-
 
