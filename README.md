@@ -24,6 +24,10 @@ https://s3.console.aws.amazon.com/s3/buckets/emrbucket-dag20180305/ds1004-projec
 
 1. Run `sudo python3 -m pip install --upgrade pip`
 1. Run `sudo python3 -m pip install findspark`
+1. Run `sudo python3 -m pip install numpy`
+1. Run `sudo python3 -m pip install scipy`
+1. Run `sudo python3 -m pip install sklearn`
+1. Run `sudo python3 -m pip install awscli`
 1. Run `sudo python3 -m pip install jupyter`
 1. Run `jupyter notebook --no-browser --port=8888 --ip=0.0.0.0` (the notebook is now running at port 8888)
 1. Note the token that is generated to enter into the browser at some later point in time.
