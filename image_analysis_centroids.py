@@ -41,8 +41,9 @@ sqlCtx = SQLContext(spark)
 # Load the sparse matrices containing the image feature data
 sp_face_features = None
 first = True
-for filename in os.listdir(DATAFOLDER):
-    fn_path = os.path.join(DATAFOLDER, filename)
+sparse_vector_dir = os.path.join(DATAFOLDER, 'sparse-vectors')
+for filename in os.listdir(sparse_vector_dir):
+    fn_path = os.path.join(sparse_vector_dir, filename)
     b = np.load(fn_path)
     data = b['data']
     m_format = b['format']
