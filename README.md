@@ -40,3 +40,7 @@ Try running this
 
 
 Note to self: some of these steps can be moved to bootstrap actions. Might not be worth it though since those need to be manually entered anyway at startup.
+
+## Running the image processor
+You can use spark submit on the image_analysis_centriods.py file specifying the data directory as a parameter at runtime.
+
